@@ -10,28 +10,49 @@ namespace Laboratorio04
     {
         public string Sumar(string num1, string num2)
         {
-            int acSuma = 0;
-            int maxLength = Math.Max(num1.Length, num2.Length);
-            StringBuilder result = new StringBuilder(maxLength + 1);
+            if ("0".Equals(num1))
+                return num2;
 
-            for (int i = 0; i < maxLength; i++)
+            if ("0".Equals(num2))
+                return num1;
+
+            string result = "";
+
+            int i = num1.Length - 1, j = num2.Length - 1;
+            int acarreo = 0;
+
+            while (i >= 0 && j >= 0)
             {
-                int digit1 = i < num1.Length ? num1[num1.Length - 1 - i] - '0' : 0;
-                int digit2 = i < num2.Length ? num2[num2.Length - 1 - i] - '0' : 0;
-                int sum = digit1 + digit2 + acSuma;
-                acSuma = sum / 10;
-                result.Append(sum % 10);
+                int r = acarreo + (num1[i] - '0') + (num2[j] - '0');
+                acarreo = r / 10;
+
+                result = (r % 10) + result;
+
+                i--;
+                j--;
+            }
+            while (i >= 0)
+            {
+                int r = acarreo + (num1[i] - '0');
+                acarreo = r / 10;
+                result = (r % 10) + result;
+
+                i--;
             }
 
-            if (acSuma > 0)
+            while (j >= 0)
             {
-                result.Append(acSuma);
+                int r = acarreo + (num2[j] - '0');
+                acarreo = r / 10;
+                result = (r % 10) + result;
+
+                j--;
             }
 
-            char[] charArray = result.ToString().ToCharArray();
-            Array.Reverse(charArray);
-            return new string(charArray);
+            if (acarreo > 0)
+                result = acarreo + result;
+
+            return result;
         }
-
     }
 }
