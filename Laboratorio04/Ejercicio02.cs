@@ -13,14 +13,11 @@ namespace Laboratorio04
         {
             double suma = 0.0;
 
-            foreach (int num in nums)
+            for (int i = 0; i < nums.Length; i++)
             {
-                suma = suma + num;
+                suma = suma + nums[i];
             }
-
-            double promedio = suma / nums.Length;
-
-            return new double[] {suma, promedio};
+            return new double[] {suma, suma / nums.Length};
         }
     }
 }
